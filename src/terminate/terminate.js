@@ -10,11 +10,11 @@ const pool = new Pool({
 
 export async function terminate() {
     try {
-        await pool.query(`DROP DATABASE trello;`)
-        console.log(`DATABASE TRELLO DROPPED SUCCESSFULLY!`)
+        await pool.query(`database trello uchirildi;`)
+        console.log(`database trello uchirildi`)
 
     } catch (error) {
-        console.log(`ERROR WHILE DROPPTING DATABASE`, error.message)
+        console.log(`database uchirishda xatolik`, error.message)
     }
     const newDB = new Pool({
         user: "postgres",

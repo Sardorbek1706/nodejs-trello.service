@@ -11,13 +11,13 @@ const pool = new Pool({
 export async function setup() {
     try {
         await pool.query(`CREATE DATABASE trello;`)
-        console.log(`DATABASE TRELLO CREATED SUCCESSFULLY!`)
+        console.log(`trello database tugri yaratildi!`)
 
     } catch (error) {
         if (error.code = "42P04") {
-            console.log(`DATABASE ALREADY EXISTED!`)
+            console.log(`bu database mavjud!`)
         }
-        console.log(`ERROR WHILE CREATING DATABASE`, error.message)
+        console.log(`database yaratishda xatolik`, error.message)
     }
     const newDB = new Pool({
         user: "postgres",

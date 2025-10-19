@@ -9,7 +9,7 @@ export const MainController = (table) => ({
       // TABLE CHECKMENT AGAINST INJECTION!
       const allowedTableNames = ["boards", "users", "columns", "tasks"]
       if (!allowedTableNames.includes(table)) {
-        return res.status(404).json({ success: false, message: `NOT FOUND SUCH A TABLE NAME!` })
+        return res.status(404).json({ success: false, message: `table nomi topilmadi!` })
       }
       const { page = 1, limit = 10 } = req.query
       const pageNum = parseInt(page)
@@ -32,12 +32,12 @@ export const MainController = (table) => ({
   },
   async getOne(req, res, next) {
     try {
-      console.log("CONTROLLER HAS BEEN WORKING!")
+      console.log("controller ishlamoqda!")
       const { id } = req.params
       // TABLE CHECKMENT AGAINST INJECTION!
       const allowedTableNames = ["boards", "users", "columns", "tasks"]
       if (!allowedTableNames.includes(table)) {
-        return res.status(404).json({ success: false, message: `NOT FOUND SUCH A TABLE NAME!` })
+        return res.status(404).json({ success: false, message: `table nomi topilmadi!` })
       }
       const IdCheck = await pool.query(`SELECT * from  ${table} where id = $1`, [id])
       if (IdCheck.rows.length === 0) {
@@ -50,7 +50,7 @@ export const MainController = (table) => ({
         const { password, ...rest } = data
         return rest;
       })
-      return res.status(200).json({ message: `SUCCESSFULLY FOUND DATA`, data: safeData[0] })
+      return res.status(200).json({ message: `data topildi`, data: safeData[0] })
     } catch (error) {
       console.error(error.message)
       return next(error)
@@ -61,7 +61,7 @@ export const MainController = (table) => ({
       // TABLE CHECKMENT AGAINST INJECTION!
       const allowedTableNames = ["boards", "users", "columns", "tasks"]
       if (!allowedTableNames.includes(table)) {
-        return res.status(404).json({ success: false, message: `NOT FOUND SUCH A TABLE NAME!` })
+        return res.status(404).json({ success: false, message: `table nomi topilmadi!` })
       }
       console.log("CONTROLLER IS WORKING!")
       const foreignCheck = req.foreignCheck;
@@ -111,7 +111,7 @@ export const MainController = (table) => ({
         const { password, ...rest } = data
         return rest;
       })
-      return res.status(201).json({ message: `CREATED SUCCESSFULLY NEW DATA!`, data: safeData[0] })
+      return res.status(201).json({ message: `yangi data yaratildi!`, data: safeData[0] })
     } catch (error) {
       console.error(error.message);
       return next(error);
@@ -123,7 +123,7 @@ export const MainController = (table) => ({
       // TABLE CHECKMENT AGAINST INJECTION!
       const allowedTableNames = ["boards", "users", "columns", "tasks"]
       if (!allowedTableNames.includes(table)) {
-        return res.status(404).json({ success: false, message: `NOT FOUND SUCH A TABLE NAME!` })
+        return res.status(404).json({ success: false, message: `table nomi topilmadi!` })
       }
       const { id } = req.params
       const IdCheck = await pool.query(`SELECT * from ${table} where id = $1`, [id])
@@ -142,7 +142,7 @@ export const MainController = (table) => ({
         const { password, ...rest } = data
         return rest;
       })
-      return res.status(200).json({ message: `UPDATED SUCCESSFULLY NEW DATA!`, data: safeData[0] })
+      return res.status(200).json({ message: `data yangilandi!`, data: safeData[0] })
     } catch (error) {
       console.error(error.message)
       return next(error)
@@ -169,7 +169,7 @@ export const MainController = (table) => ({
         const { password, ...rest } = data
         return rest;
       })
-      return res.status(200).json({ message: `DELETED SUCCESSFULLY THE DATA!`, data: safeData[0] })
+      return res.status(200).json({ message: `data uchirildi!`, data: safeData[0] })
     } catch (error) {
       console.error(error.message)
       return next(error)
@@ -180,14 +180,14 @@ export const MainController = (table) => ({
       // TABLE CHECKMENT AGAINST INJECTION!
       const allowedTableNames = ["boards", "users", "columns", "tasks"]
       if (!allowedTableNames.includes(table)) {
-        return res.status(404).json({ success: false, message: `NOT FOUND SUCH A TABLE NAME!` })
+        return res.status(404).json({ success: false, message: `table nomi topilmadi!` })
       }
       console.log("CONTROLLER HAS BEEN WORKING!")
       const {page=1, limit=10, ...filters} = req.query
       const keys = Object.keys(filters)
       const values = Object.values(filters)
       if (keys.length === 0) {
-        return res.status(404).json({ message: `NO SEARCH PARAMETERS PROVIDED!` })
+        return res.status(404).json({ message: `qidiruv parametrlari topilmadi!` })
       }
       const pageNum = parseInt(page)
       const limitNum = parseInt(limit)
@@ -198,7 +198,7 @@ export const MainController = (table) => ({
       const query = `SELECT * FROM ${table} ${whereClause} LIMIT $${Values.length + 1} OFFSET $${Values.length + 2}`;
       const result = await pool.query(query, [...Values, limitNum, offset])
       if (result.rows.length === 0) {
-        const error = new Error(`NOT FOUND ANY RESULT FOR THIS SEARCH`)
+        const error = new Error(`bunaqa ismli narsa topilmadi`)
         error.status = 404
         return next(error)
       }

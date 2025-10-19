@@ -6,7 +6,7 @@ export const registerUser = async (req, res, next) => {
         const { name, email, password } = req.validatedData
         const hashedPassword = await bcrypt.hash(password, 10)
         const { rows } = await pool.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`, [name, email, hashedPassword])
-        return res.status(201).json({ success: true, message: `REGISTERED SUCCESSFULLY`, user: rows[0] })
+        return res.status(201).json({ success: true, message: `registratsiya muvafaqiyatli`, user: rows[0] })
     } catch (error) {
         console.error(error.message)
         return next(error)
